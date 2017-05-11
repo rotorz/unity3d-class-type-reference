@@ -1,26 +1,40 @@
-README
-======
+# unity3d-class-type-reference
 
-A class which provides serializable references to `System.Type` of classes with an accompanying custom property drawer which allows class selection from drop-down.
+[![npm version](https://badge.fury.io/js/%40rotorz%2Funity3d-class-type-reference.svg)](https://badge.fury.io/js/%40rotorz%2Funity3d-class-type-reference)
+[![Dependency Status](https://david-dm.org/rotorz/unity3d-class-type-reference.svg)](https://david-dm.org/rotorz/unity3d-class-type-reference)
+[![devDependency Status](https://david-dm.org/rotorz/unity3d-class-type-reference/dev-status.svg)](https://david-dm.org/rotorz/unity3d-class-type-reference#info=devDependencies)
 
-Licensed under the MIT license. See LICENSE file in the project root for full license
-information. DO NOT contribute to this project unless you accept the terms of the
-contribution agreement.
+An example npm package that contains some example assets to demonstrate how to create a
+package for use in games made using the Unity game engine.
 
-![screenshot](https://bitbucket.org/rotorz/classtypereference-for-unity/raw/master/screenshot.png)
 
-Whilst we have not encountered any platform specific issues yet, the source code in this repository *might* not necessarily work for all of Unity's platforms or build configurations. It would be greatly appreciated if people would report issues using the [issue tracker](https://bitbucket.org/rotorz/classtypereference-for-unity/issues).
+```sh
+$ npm install --save @rotorz/unity3d-class-type-reference
+```
 
-Usage Examples
---------------
+This package is compatible with [unity3d-package-syncer](https://github.com/rotorz/unity3d-package-syncer).
+
+![screenshot](screenshot.png)
+
+
+## Warning
+
+Whilst we have not encountered any platform specific issues yet, the source code in this
+repository *might* not necessarily work for all of Unity's platforms or build
+configurations. It would be greatly appreciated if people would report issues using the
+issue tracker.
+
+
+## Usage Examples
 
 Type references can be made using the inspector simply by using `ClassTypeReference`:
 
 ```csharp
+using Rotorz.Games.Reflection;
 using UnityEngine;
-using TypeReferences;
 
-public class ExampleBehaviour : MonoBehaviour {
+public class ExampleBehaviour : MonoBehaviour
+{
     public ClassTypeReference greetingLoggerType;
 }
 ```
@@ -31,13 +45,15 @@ A default value can be specified in the normal way:
 public ClassTypeReference greetingLoggerType = typeof(DefaultGreetingLogger);
 ```
 
-You can apply one of two attributes to drastically reduce the number of types presented when using the drop-down field.
+You can apply one of two attributes to drastically reduce the number of types presented
+when using the drop-down field.
 
 ```csharp
+using Rotorz.Games.Reflection;
 using UnityEngine;
-using TypeReferences;
 
-public class ExampleBehaviour : MonoBehaviour {
+public class ExampleBehaviour : MonoBehaviour
+{
     // Allow selection of classes that implement an interface.
     [ClassImplements(typeof(IGreetingLogger))]
     public ClassTypeReference greetingLoggerType;
@@ -48,58 +64,63 @@ public class ExampleBehaviour : MonoBehaviour {
 }
 ```
 
-To create an instance at runtime you can use the `System.Activator` class from the .NET / Mono library:
+To create an instance at runtime you can use the `System.Activator` class from the .NET /
+Mono library:
 
 ```csharp
+using Rotorz.Games.Reflection;
 using System;
 using UnityEngine;
-using TypeReferences;
 
-public class ExampleBehaviour : MonoBehaviour {
+public class ExampleBehaviour : MonoBehaviour
+{
     [ClassImplements(typeof(IGreetingLogger))]
     public ClassTypeReference greetingLoggerType = typeof(DefaultGreetingLogger);
 
-    private void Start() {
-        if (greetingLoggerType.Type == null) {
+
+    private void Start()
+    {
+        if (this.greetingLoggerType.Type == null) {
             Debug.LogWarning("No type of greeting logger was specified.");
         }
         else {
-            var greetingLogger = Activator.CreateInstance(greetingLoggerType) as IGreetingLogger;
+            var greetingLogger = Activator.CreateInstance(this.greetingLoggerType) as IGreetingLogger;
             greetingLogger.LogGreeting();
         }
     }
 }
 ```
 
-Presentation of drop-down list can be customized by supplying a `ClassGrouping` value to either of the attributes `ClassImplements` or `ClassExtends`.
+Presentation of drop-down list can be customized by supplying a `ClassGrouping` value to
+either of the attributes `ClassImplements` or `ClassExtends`.
 
-- **ClassGrouping.None** - No grouping, just show type names in a list; for instance, "Some.Nested.Namespace.SpecialClass".
+- **ClassGrouping.None** - No grouping, just show type names in a list; for instance,
+  "Some.Nested.Namespace.SpecialClass".
 
-- **ClassGrouping.ByNamespace** - Group classes by namespace and show foldout menus for nested namespaces; for instance, "Some > Nested > Namespace > SpecialClass".
+- **ClassGrouping.ByNamespace** - Group classes by namespace and show foldout menus for
+  nested namespaces; for instance, "Some > Nested > Namespace > SpecialClass".
 
-- **ClassGrouping.ByNamespaceFlat** (default) - Group classes by namespace; for instance, "Some.Nested.Namespace > SpecialClass".
+- **ClassGrouping.ByNamespaceFlat** (default) - Group classes by namespace; for instance,
+  "Some.Nested.Namespace > SpecialClass".
 
-- **ClassGrouping.ByAddComponentMenu** - Group classes in the same way as Unity does for its component menu. This grouping method must only be used for `MonoBehaviour` types.
+- **ClassGrouping.ByAddComponentMenu** - Group classes in the same way as Unity does for
+  its component menu. This grouping method must only be used for `MonoBehaviour` types.
 
 For instance,
 
 ```csharp
+using Rotorz.Games.Reflection;
 using UnityEngine;
-using TypeReferences;
 
-public class ExampleBehaviour : MonoBehaviour {
+public class ExampleBehaviour : MonoBehaviour
+{
     [ClassImplements(typeof(IGreetingLogger), Grouping = ClassGrouping.ByAddComponentMenu)]
     public ClassTypeReference greetingLoggerType;
 }
 ```
 
-Useful links
-------------
 
-- [Rotorz Website](<http://rotorz.com>)
-
-Contribution Agreement
-----------------------
+## Contribution Agreement
 
 This project is licensed under the MIT license (see LICENSE). To be in the best
 position to enforce these licenses the copyright status of this project needs to
