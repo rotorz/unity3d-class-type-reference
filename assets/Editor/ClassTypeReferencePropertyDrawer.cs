@@ -61,11 +61,8 @@ namespace Rotorz.Games.Reflection
 
             var excludedTypes = (ExcludedTypeCollectionGetter != null ? ExcludedTypeCollectionGetter() : null);
 
-            var assembly = Assembly.GetExecutingAssembly();
-            FilterTypes(assembly, filter, excludedTypes, types);
-
-            foreach (var referencedAssembly in assembly.GetReferencedAssemblies()) {
-                FilterTypes(Assembly.Load(referencedAssembly), filter, excludedTypes, types);
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                FilterTypes(assembly, filter, excludedTypes, types);
             }
 
             types.Sort((a, b) => a.FullName.CompareTo(b.FullName));
