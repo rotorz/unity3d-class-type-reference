@@ -36,16 +36,16 @@ namespace Rotorz.Games.Reflection
         /// <para>Exclude a specific type from being selected:</para>
         /// <code language="csharp"><![CDATA[
         /// private SerializedProperty someClassTypeReferenceProperty;
-        /// 
+        ///
         /// public override void OnInspectorGUI() {
         ///     serializedObject.Update();
-        /// 
+        ///
         ///     ClassTypeReferencePropertyDrawer.ExcludedTypeCollectionGetter = GetExcludedTypeCollection;
         ///     EditorGUILayout.PropertyField(this.someClassTypeReferenceProperty);
-        /// 
+        ///
         ///     serializedObject.ApplyModifiedProperties();
         /// }
-        /// 
+        ///
         /// private ICollection<Type> GetExcludedTypeCollection() {
         ///     var set = new HashSet<Type>();
         ///     set.Add(typeof(SpecialClassToHideInDropdown));
@@ -278,7 +278,7 @@ namespace Rotorz.Games.Reflection
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            DrawTypeSelectionControl(position, property.FindPropertyRelative("_classRef"), label, attribute as ClassTypeConstraintAttribute);
+            DrawTypeSelectionControl(position, property.FindPropertyRelative("classRef"), label, attribute as ClassTypeConstraintAttribute);
         }
     }
 }
