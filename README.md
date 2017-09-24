@@ -1,15 +1,11 @@
 # unity3d-class-type-reference
 
-[![npm version](https://badge.fury.io/js/%40rotorz%2Funity3d-class-type-reference.svg)](https://badge.fury.io/js/%40rotorz%2Funity3d-class-type-reference)
-[![Dependency Status](https://david-dm.org/rotorz/unity3d-class-type-reference.svg)](https://david-dm.org/rotorz/unity3d-class-type-reference)
-[![devDependency Status](https://david-dm.org/rotorz/unity3d-class-type-reference/dev-status.svg)](https://david-dm.org/rotorz/unity3d-class-type-reference#info=devDependencies)
-
 An example npm package that contains some example assets to demonstrate how to create a
 package for use in games made using the Unity game engine.
 
 
 ```sh
-$ npm install --save @rotorz/unity3d-class-type-reference
+$ npm install --save rotorz/unity3d-class-type-reference
 ```
 
 This package is compatible with [unity3d-package-syncer](https://github.com/rotorz/unity3d-package-syncer).
